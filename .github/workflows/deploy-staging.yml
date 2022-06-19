@@ -5,14 +5,14 @@ on:
     types: [labeled]
 
 env:
-  DOCKER_IMAGE_NAME: MohammadJomaa-azure-tttt
+  DOCKER_IMAGE_NAME: mohammadjomaa-azure-tttt
   IMAGE_REGISTRY_URL: docker.pkg.github.com
   #################################################
   ### USER PROVIDED VALUES ARE REQUIRED BELOW   ###
   #################################################
   #################################################
   ### REPLACE USERNAME WITH GH USERNAME         ###
-  AZURE_WEBAPP_NAME: MohammadJomaa-ttt-app
+  AZURE_WEBAPP_NAME: mohammadjomaa-ttt-app
   #################################################
 
 jobs:
