@@ -6,14 +6,14 @@ on:
       - main
 
 env:
-  DOCKER_IMAGE_NAME: MohammadJomaa-azure-tttt # Must not exist as a package associated with a different repo!
-  IMAGE_REGISTRY_URL: docker.pkg.github.com
+  DOCKER_IMAGE_NAME: mohammadjomaa-azure-tttt # Must not exist as a package associated with a different repo!
+  IMAGE_REGISTRY_URL: ghcr.io
   #################################################
   ### USER PROVIDED VALUES ARE REQUIRED BELOW   ###
   #################################################
   #################################################
   ### REPLACE USERNAME WITH GH USERNAME         ###
-  AZURE_WEBAPP_NAME: MohammadJomaa-ttt-app
+  AZURE_WEBAPP_NAME: mohammadjomaa-ttt-app
   #################################################
 
 jobs:
@@ -60,18 +60,24 @@ jobs:
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-
+          
+      - name: Lowercase the repo name
+        run: echo "REPO=${GITHUB_REPOSITORY,,}" >>${GITHUB_ENV}
+        
+      - name: Lowercase the github.actor
+        run: echo "actor=${GITHUB_ACTOR,,}" >>${GITHUB_ENV}
+        
       - uses: azure/docker-login@v1
         with:
           login-server: ${{env.IMAGE_REGISTRY_URL}}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          username: ${{ env.actor }}
+          password: ${{secrets.REGISTRY_PASSWORD}}
 
       - name: Deploy web app container
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{env.AZURE_WEBAPP_NAME}}
-          images: ${{env.IMAGE_REGISTRY_URL}}/${{ github.repository }}/${{env.DOCKER_IMAGE_NAME}}:${{ github.sha }}
+          images: ${{env.IMAGE_REGISTRY_URL}}/${{ env.REPO }}/${{env.DOCKER_IMAGE_NAME}}:${{ github.sha }}
 
       - name: Azure logout
         run: |
