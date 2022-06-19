@@ -13,7 +13,7 @@ env:
   #################################################
   #################################################
   ### REPLACE USERNAME WITH GH USERNAME         ###
-  AZURE_WEBAPP_NAME: MohammadJomaa-ttt-app
+  AZURE_WEBAPP_NAME: mohammadjomaa-ttt-app
   #################################################
 
 jobs:
