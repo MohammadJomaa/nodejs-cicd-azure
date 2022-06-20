@@ -1,5 +1,5 @@
 name: Configure Azure environment
-#spin up environment
+#spin up environment2
 on: 
   pull_request:
     types: [labeled]
